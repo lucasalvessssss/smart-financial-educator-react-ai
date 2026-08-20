@@ -3,10 +3,12 @@ import { PiggyBank } from 'lucide-react'
 import { createBrowserRouter } from 'react-router-dom'
 
 import { Button } from './componets/shared/Button'
+import { RootLayout } from './componets/layout/RootLayout';
 
 
 export const router = createBrowserRouter([
   {
+    element: <RootLayout />,
     children: [
       {
         path: '/',
