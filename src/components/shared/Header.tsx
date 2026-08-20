@@ -1,13 +1,13 @@
-import { Clock, Moon, Sun, TrendingUp, Wallet } from 'lucide-react'
-import { useNavigate } from 'react-router-dom'
+import { Clock, Moon, Sun, TrendingUp, Wallet } from 'lucide-react';
+import { useNavigate } from 'react-router-dom';
 
-import { useTheme } from '../../hooks/useTheme'
-import { Button } from './Button'
-import { Divider } from './Divider'
+import { useTheme } from '../../hooks/useTheme';
+import { Button } from './Button';
+import { Divider } from './Divider';
 
 export function Header() {
-  const navigate = useNavigate()
-  const { theme, toggleTheme } = useTheme()
+  const navigate = useNavigate();
+  const { theme, toggleTheme } = useTheme();
 
   return (
     <header className="border-b border-(--border) px-6 py-3">
@@ -46,5 +46,5 @@ export function Header() {
         </div>
       </nav>
     </header>
-  )
+  );
 }
