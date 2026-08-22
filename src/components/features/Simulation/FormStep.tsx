@@ -1,17 +1,26 @@
-import { ArrowLeft, ArrowRight, type LucideIcon } from 'lucide-react'
+import { ArrowLeft, ArrowRight, type LucideIcon } from 'lucide-react';
+import { type SyntheticEvent, useState } from 'react';
 
-import { Button } from '@/components/shared/Button'
-import { Input, type InputProps } from '@/components/shared/Input'
+import { Button } from '@/components/shared/Button';
+import { Input, type InputProps } from '@/components/shared/Input';
+import { formatCurrency } from '@/utils/currency';
 
-interface FormStepProps {
-  icon: LucideIcon
-  title: string
-  question: string
-  inputProps: InputProps
+export interface FormStepProps {
+  id: string;
+  icon: LucideIcon;
+  title: string;
+  question: string;
+  inputProps: InputProps;
   submitButtonProps?: {
-    label: string
-    emojiIcon?: string
-  }
+    label: string;
+    emojiIcon?: string;
+  };
+}
+
+interface ActionsButtonsProps {
+  onBack: () => void;
+  onNext: () => void;
+  hideBackButton?: boolean;
 }
 
 export function FormStep({
@@ -20,7 +29,21 @@ export function FormStep({
   question,
   inputProps,
   submitButtonProps,
-}: FormStepProps) {
+  hideBackButton,
+  onBack,
+  onNext,
+}: FormStepProps & ActionsButtonsProps) {
+  const [inputValue, setInputValue] = useState('');
+  const handleSubmit = (e: SyntheticEvent<HTMLFormElement>) => {
+    e.preventDefault();
+
+    if (!inputValue) {
+      return;
+    }
+
+    onNext();
+  };
+
   return (
     <div className="bg-card rounded-2xl p-6 shadow-[4px_4px_18px_0px_rgba(0,0,0,0.2)] sm:p-8">
       <div className="bg-primary mb-4 flex h-15 w-15 items-center justify-center rounded-xl">
@@ -32,20 +55,34 @@ export function FormStep({
       <h3 className="text-foreground mb-6 text-xl leading-snug font-semibold sm:text-2xl">
         {question}
       </h3>
-      <form className="flex flex-col gap-4">
-        <Input {...inputProps} />
+      <form onSubmit={handleSubmit} className="flex flex-col gap-4">
+        <Input
+          {...inputProps}
+          value={inputValue}
+          onChange={(e) =>
+            setInputValue(
+              inputProps.prefix === 'R$'
+                ? formatCurrency(e.target.value)
+                : e.target.value
+            )
+          }
+        />
         <div className="flex flex-col gap-3 sm:flex-row sm:gap-6">
-          <Button
-            type="button"
-            variant="ghost"
-            className="order-2 flex-1 justify-center rounded-xl py-3 sm:order-1"
-          >
-            <ArrowLeft size={16} />
-            Voltar
-          </Button>
+          {!hideBackButton && (
+            <Button
+              type="button"
+              variant="ghost"
+              className="order-2 flex-1 justify-center rounded-xl py-3 sm:order-1"
+              onClick={onBack}
+            >
+              <ArrowLeft size={16} />
+              Voltar
+            </Button>
+          )}
           <Button
             type="submit"
             variant="primary"
+            disabled={!inputValue}
             className="order-1 flex-1 sm:order-2"
           >
             {submitButtonProps?.label ?? 'Próximo'}
@@ -54,5 +91,5 @@ export function FormStep({
         </div>
       </form>
     </div>
-  )
+  );
 }
