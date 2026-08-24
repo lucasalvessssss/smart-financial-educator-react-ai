@@ -5,11 +5,11 @@ import {
   Landmark,
   PiggyBank,
   Wallet,
-} from 'lucide-react'
+} from 'lucide-react';
 
-import type { FormStepProps } from '../components/features/Simulation/FormStep'
+import type { FormStepProps } from '../components/features/Simulation/FormStep';
 
-export const simulationFormSteps: FormStepProps[] = [
+export const simulationFormSteps = [
   {
     id: 'income',
     icon: PiggyBank,
@@ -84,4 +84,9 @@ export const simulationFormSteps: FormStepProps[] = [
       emojiIcon: '✨',
     },
   },
-]
+] satisfies FormStepProps[];
+
+export type SimulationFormData = Record<
+  (typeof simulationFormSteps)[number]['id'],
+  string
+>;
