@@ -1,4 +1,4 @@
-  @layer base {
+@layer base {
   :root,
   [data-theme='light'] {
     --background: #f8fafc;

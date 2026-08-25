@@ -1,75 +1,73 @@
-# React + TypeScript + Vite
+# Smart Financial Educator
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Aplicação web para planejamento financeiro pessoal. O usuário informa sua renda, gastos, dívidas e uma meta financeira para receber uma análise personalizada.
 
-Currently, two official plugins are available:
+## Funcionalidades
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+- Formulário de simulação em várias etapas
+- Cálculo da economia mensal disponível
+- Página de resultados com resumo financeiro
+- Insights gerados pelo Google Gemini
+- Histórico de simulações salvo no navegador
+- Conversa com o educador financeiro
+- Tema claro e escuro
 
-## React Compiler
+## Tecnologias
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+- React
+- TypeScript
+- Vite
+- Tailwind CSS
+- React Router
+- Google Gemini API
+- LocalStorage
 
-## Expanding the ESLint configuration
+## Como executar
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+Instale as dependências:
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
-
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-
+```bash
+npm install
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+Para usar os insights com IA, crie um arquivo `.env.local` na raiz do projeto:
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
-
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-
+```env
+VITE_GEMINI_API_KEY=sua_chave_do_gemini
 ```
+
+Inicie o projeto:
+
+```bash
+npm run dev
+```
+
+## Comandos úteis
+
+```bash
+npm run build          # gera o build de produção
+npm run lint           # verifica o código
+npm run format         # formata os arquivos
+npm run format:check   # verifica a formatação
+```
+
+## Rotas principais
+
+- `/` - formulário de simulação
+- `/resultado/:id` - resultado de uma simulação
+- `/historico` - simulações salvas
+
+## Estrutura principal
+
+```text
+src/
+├── components/   # componentes da interface
+├── context/      # contexto de tema
+├── data/         # dados do formulário e prompt da IA
+├── hooks/        # lógica reutilizável e localStorage
+├── pages/        # páginas da aplicação
+├── services/     # integração com o Gemini
+└── utils/        # cálculos e formatação de valores
+```
+
+Os dados das simulações são armazenados localmente no navegador. Não há backend ou banco de dados remoto.

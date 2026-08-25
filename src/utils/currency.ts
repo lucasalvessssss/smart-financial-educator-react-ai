@@ -12,3 +12,10 @@ export function formatCurrency(value: string): string {
 
   return currencyFormatter.format(Number(digits) / 100);
 }
+
+export function parseCurrency(value: string): number {
+  return (
+    parseFloat(value.replace(/\./g, '').replace(',', '.').replace('R$', '')) ||
+    0
+  );
+}

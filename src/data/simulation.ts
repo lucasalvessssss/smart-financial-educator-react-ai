@@ -8,6 +8,7 @@ import {
 } from 'lucide-react';
 
 import type { FormStepProps } from '../components/features/Simulation/FormStep';
+import type { InsightData } from '../services/aiService';
 
 export const simulationFormSteps = [
   {
@@ -74,6 +75,7 @@ export const simulationFormSteps = [
     question: 'Em quantos meses você planeja atingir esse objetivo?',
     inputProps: {
       type: 'number',
+
       placeholder: 'ex: 12',
       suffix: 'meses',
       min: 1,
@@ -90,3 +92,18 @@ export type SimulationFormData = Record<
   (typeof simulationFormSteps)[number]['id'],
   string
 >;
+
+export type SimulationRecord = Omit<
+  SimulationFormData,
+  'id' | 'insight' | 'conversation'
+> & {
+  id: string;
+  insight?: InsightData;
+  conversation?: ConversationMessage[];
+};
+
+export interface ConversationMessage {
+  id: string;
+  role: 'user' | 'assistant';
+  content: string;
+}
